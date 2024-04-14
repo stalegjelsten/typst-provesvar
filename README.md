@@ -8,7 +8,10 @@ Simple and easy-to-use template for problem sets/homeworks/assignments.
 Click "Start from template" in the Typst web app and search for `problemst`.
 
 Alternatively, run the following command to create a directory initialized with all necessary files:
-```typst init @preview/mypkg:version```
+
+```
+typst init @preview/mypkg:version
+```
 
 ## Configuration
 The `pset` function takes the following named arguments:
