@@ -51,7 +51,7 @@
       inset: 1em,
       fill: luma(98%)
     )[
-      #show raw.line: l => {
+      #show raw.line: l => context {
         box(width:measure([#it.lines.last().count]).width, align(right, text(fill: luma(50%))[#l.number]))
         h(0.5em)
         l.body
