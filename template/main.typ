@@ -1,4 +1,4 @@
-#import "@preview/problemst:0.1.0": pset
+#import "@preview/problemst:0.1.1": pset
 
 #show: pset.with(
   class: "6.100",

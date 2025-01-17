@@ -2,7 +2,7 @@
 
 Simple and easy-to-use template for problem sets/homeworks/assignments.
 
-![Example use of the template](./template/thumbnail.png)
+![Example use of the template](./thumbnail.png)
 
 ## Usage
 Click "Start from template" in the Typst web app and search for `problemst`.
@@ -10,7 +10,7 @@ Click "Start from template" in the Typst web app and search for `problemst`.
 Alternatively, run the following command to create a directory initialized with all necessary files:
 
 ```
-typst init @preview/problemst:0.1.0
+typst init @preview/problemst:0.1.1
 ```
 
 ## Configuration
