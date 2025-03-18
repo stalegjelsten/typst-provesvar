@@ -1,6 +1,6 @@
 [package]
 name = "problemst"
-version = "0.1.1"
+version = "0.1.2"
 entrypoint = "pset.typ"
 authors = ["Willow Carretero Chavez <@carreter>"]
 license = "MIT"
