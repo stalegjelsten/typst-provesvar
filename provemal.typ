@@ -2,9 +2,8 @@
   klasse: "2PY",
   tittel: "Terminprøve",
   elev: "Kari Nordmann",
-  innrykk: 0.5in,
-  hoydeJustering: -0.27cm,
-  deloppgaveNivaa: 2,
+  innrykk: 1cm,
+  deloppgaveNivaa: (2, 3),
   spraak: "nb",
   dato: datetime.today(),
   // subproblems: "1a i",
@@ -32,11 +31,11 @@
 
 
   show math.equation.where(label: <s>).and(math.equation.where(block: true)): it => {
-    math.underline(math.underline(text(it, weight: 600)))
+    math.underline(math.underline(text(it)))
   }
 
   show math.equation.where(label: <s>).and(math.equation.where(block: false)): it => {
-    math.underline(math.underline(text(it, weight: 600)))
+    math.underline(math.underline(text(it)))
   }
 
   show math.equation: it => {
@@ -48,12 +47,24 @@
     it
   }
 
-
   // pads text below level 2 headings with `innrykk` amount
   show par: it => context {
     let lastHeads = query(selector(heading).before(here()))
     if lastHeads.len() > 0 {
-      if (lastHeads.at(-1).level == deloppgaveNivaa) {
+      if deloppgaveNivaa.any(it => { it == lastHeads.at(-1).level }) {
+        pad(it, left: innrykk)
+      } else {
+        it
+      }
+    } else {
+      it
+    }
+  }
+
+  show rect: it => context {
+    let lastHeads = query(selector(heading).before(here()))
+    if lastHeads.len() > 0 {
+      if deloppgaveNivaa.any(it => { it == lastHeads.at(-1).level }) {
         pad(it, left: innrykk)
       } else {
         it
@@ -66,7 +77,7 @@
   show image: it => context {
     let lastHeads = query(selector(heading).before(here()))
     if lastHeads.len() > 0 {
-      if (lastHeads.at(-1).level == deloppgaveNivaa) {
+      if deloppgaveNivaa.any(it => { it == lastHeads.at(-1).level }) {
         pad(it, left: innrykk)
       } else {
         it
@@ -79,7 +90,7 @@
   show figure: it => context {
     let lastHeads = query(selector(heading).before(here()))
     if lastHeads.len() > 0 {
-      if (lastHeads.at(-1).level == deloppgaveNivaa) {
+      if deloppgaveNivaa.any(it => { it == lastHeads.at(-1).level }) {
         it.body
         pad(it.caption, left: innrykk)
       } else {
@@ -93,7 +104,7 @@
   show math.equation.where(block: true): it => context {
     let lastHeads = query(selector(heading).before(here()))
     if lastHeads.len() > 0 {
-      if (lastHeads.at(-1).level == deloppgaveNivaa) {
+      if deloppgaveNivaa.any(it => { it == lastHeads.at(-1).level }) {
         pad(it, left: innrykk)
       } else {
         it
@@ -103,9 +114,22 @@
     }
   }
 
-  show heading.where(level: deloppgaveNivaa): it => {
-    block(it, below: hoydeJustering)
+  // moves the content below headings.where(level: delOppgaveNivaa) up to the same level as the heading
+  let combined = if deloppgaveNivaa.len() > 1 {
+    deloppgaveNivaa
+      .slice(1, deloppgaveNivaa.len())
+      .fold(
+        heading.where(level: deloppgaveNivaa.at(0)),
+        (acc, lvl) => acc.or(heading.where(level: lvl)),
+      )
+  } else {
+    heading.where(level: deloppgaveNivaa.at(0))
   }
+
+  show combined: it => {
+    block(it, below: -measure(it.body).height)
+  }
+
 
   /* Set metadata */
   set document(title: [#klasse - #tittel], author: elev, date: dato)
@@ -117,7 +141,7 @@
       let venstreJustering = 0cm
       let lastHeads = query(selector(heading).before(here()))
       if lastHeads.len() > 0 {
-        if (lastHeads.at(-1).level == deloppgaveNivaa) {
+        if (deloppgaveNivaa.any(it => { it == lastHeads.at(-1).level })) {
           venstreJustering = -innrykk
         }
       }

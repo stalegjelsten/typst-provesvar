@@ -4,17 +4,22 @@
   klasse: "S2",
   elev: "Ståle Gjelsten",
   tittel: "Terminprøve",
-  innrykk: 0.5in,
-  deloppgaveNivaa: 3,
-  hoydeJustering: -0.24cm,
+  innrykk: 1cm,
+  deloppgaveNivaa: (3, 4),
   spraak: "nb",
   dato: datetime.today(),
 )
 
 #let svar(it) = {
-  par(underline(underline(text(it, weight: 600)), offset: 2pt), leading: 0.5em)
+  rect(
+    underline(underline(text(it)), offset: 2pt),
+    fill: color.hsl(0deg, 0%, 98.5%),
+    inset: 1em,
+    radius: 0.5em,
+    stroke: 1pt + gray,
+    width: 100%,
+  )
 }
-
 
 = Del 1
 Something something infinitesimals something something. We can then define the derivative as the limit of the difference quotient as $Delta x arrow 0$:
@@ -25,7 +30,7 @@ $ lim_(Delta x arrow 0) (f(x + Delta x) - f(x)) / (Delta x). $<s>
 
 Hva skal vi si ?
 
-#svar[Når skal vi sjekke et veldig kasdjfø asdj fdjsa løjfaslk jfdløkj aøsdlkjf ølsadkj løfkdjsa ølkjdas klfjøasdk jfasøl]
+#svar[#lorem(24)]
 
 #figure(image("image.png", width: 50%), caption: [Her viser vi])
 
@@ -33,7 +38,14 @@ $ underline(underline(x^2 + integral_(-1)^2)) f(x) d x forall x in [2,4] $
 
 #lorem(50)
 
+==== 1a i
+
 #lorem(50)
+
+#lorem(100)
+
+=== 1b
+La oss se hva
 
 = Oppgave
 #lorem(50)
