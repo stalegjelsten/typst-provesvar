@@ -1,31 +1,33 @@
 #import "provemal.typ": prove
 
 #show: prove.with(
-  class: "6.100",
-  student: "Alyssa P. Hacker",
-  title: "PSET 0",
-  date: datetime.today(),
+  klasse: "S2",
+  elev: "Ståle Gjelsten",
+  tittel: "Terminprøve",
+  innrykk: 0.5in,
+  deloppgaveNivaa: 3,
+  hoydeJustering: -0.24cm,
+  spraak: "nb",
+  dato: datetime.today(),
 )
 
 #let svar(it) = {
   par(underline(underline(text(it, weight: 600)), offset: 2pt), leading: 0.5em)
 }
-#let deriv(num, dnm) = [$ (d num) / (d dnm) $]
 
-= Oppgave
+
+= Del 1
 Something something infinitesimals something something. We can then define the derivative as the limit of the difference quotient as $Delta x arrow 0$:
-$ deriv(f(x), x)&= lim_(Delta x arrow 0) (f(x + Delta x) - f(x)) / (Delta x). $
+$ lim_(Delta x arrow 0) (f(x + Delta x) - f(x)) / (Delta x). $<s>
 
-#let arr = (1, 2, 3, 4)
-
-#arr.at(-2)
-
-= Oppgave 2
-== 2a
+== Oppgave 1
+=== 1a
 
 Hva skal vi si ?
 
 #svar[Når skal vi sjekke et veldig kasdjfø asdj fdjsa løjfaslk jfdløkj aøsdlkjf ølsadkj løfkdjsa ølkjdas klfjøasdk jfasøl]
+
+#figure(image("image.png", width: 50%), caption: [Her viser vi])
 
 $ underline(underline(x^2 + integral_(-1)^2)) f(x) d x forall x in [2,4] $
 
@@ -33,10 +35,29 @@ $ underline(underline(x^2 + integral_(-1)^2)) f(x) d x forall x in [2,4] $
 
 #lorem(50)
 
+= Oppgave
 #lorem(50)
 
 == 2b
 
-#lorem(80)
-sdafjlasd fjkl
-asdfljkødasf løkas
+#lorem(20)
+
+#svar[svaret på denne oppgaven er $2x+3$<s>
+  sdafjlasd fjkl
+  asdfljkødasf løkas]
+
+= Oppgave 3
+$ F(31)=3.21 $<s>
+
+= Dokumentasjon
+== Typst syntaks
+- `$2x dot 3y +3$` gir $2x dot 3y +3$
+- `$ 2x+3 $`
+- OBS! Hvis man skal skrive to variabler rett etter hverandre (implisitt multiplikasjon), for eksempel $x y$, så er man nødt til å ha et mellomrom mellom hver variabel: `$x y$`. Det er for å unngå konflikter med innbygde funksjoner i Typst.
+
+== To streker under svar
+- I matteformler skriver du `<s>` rett etter formelen slik som `$ 2x+3 $<s>`
+- I tekst så skriver du `#svar[Her kommer svaret ditt]`
+
+== Formatere tall
+- I dette dokumentet er det en funksjon som gjør om alle desimaltall skrevet i mattemodus med desimalpunktum til tall med desimalkomma. Hvis du skriver `$6.31$` får du altså $6.31$. Hvis du skriver `$6,31$` så vil du få $6,31$ (med et stygt mellomrom som vi ønsker å unngå).
