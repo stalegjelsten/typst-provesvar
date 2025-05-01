@@ -1,12 +1,12 @@
 [package]
-name = "problemst"
-version = "0.1.2"
-entrypoint = "pset.typ"
-authors = ["Willow Carretero Chavez <@carreter>"]
+name = "provemal-norsk"
+version = "0.0.1"
+entrypoint = "provemal.typ"
+authors = ["Ståle Gjelsten <@stalegjelsten>"]
 license = "MIT"
-repository = "https://github.com/carreter/problemst"
-description = "Simple and easy-to-use template for problem sets/homeworks/assignments." 
-keywords = ["template", "homework", "problem set", "pset", "assignment"]
+repository = "https://github.com/stalegjelsten/typst-provemal"
+description = "A Norwegian template for writing math homework and math quiz answers" 
+keywords = ["template", "norwegian", "math test", "math quiz", "homework", "problem set", "pset", "assignment"]
 categories = ["report"]
 compiler = "0.12.0"
 
