@@ -1,16 +1,15 @@
 [package]
-name = "provemal-norsk"
-version = "0.0.1"
-entrypoint = "provemal.typ"
-authors = ["Ståle Gjelsten <@stalegjelsten>"]
+name = "provesvar"
+version = "0.1.0"
+entrypoint = "provesvar.typ"
+authors = ["Ståle Gjelsten <@stalegjelsten>", "Willow Carretero Chavez <@carreter>"]
 license = "MIT"
 repository = "https://github.com/stalegjelsten/typst-provemal"
 description = "A Norwegian template for writing math homework and math quiz answers" 
 keywords = ["template", "norwegian", "math test", "math quiz", "homework", "problem set", "pset", "assignment"]
 categories = ["report"]
-compiler = "0.12.0"
+compiler = "0.12"
 
 [template]
 path = "template"
 entrypoint = "main.typ"
-thumbnail = "thumbnail.png"

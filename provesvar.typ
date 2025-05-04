@@ -6,12 +6,13 @@
   padding: 0.4em,
   deloppgaveNivaa: (2, 3),
   spraak: "nb",
+  fontSize: 11pt,
   dato: datetime.today(),
   doc,
 ) = {
 
   set par(justify: true)
-  set text(lang: spraak)
+  set text(lang: spraak, size: fontSize)
 
   // make links stand out a bit
   show link: it => {
@@ -72,8 +73,7 @@
     }
   }
 
-  // moves the content below headings.where(level: delOppgaveNivaa) up to the same level as the heading
-  // this makes it seem like the content is to the right of the heading
+  // this selector select all headings in deloppgaveNivaa
   let combined = if deloppgaveNivaa.len() > 1 {
     deloppgaveNivaa
     .slice(1, deloppgaveNivaa.len())
@@ -85,8 +85,17 @@
     heading.where(level: deloppgaveNivaa.at(0))
   }
 
+  // moves the content below headings.where(level: delOppgaveNivaa) up to the same level as the heading
+  // this makes it seem like the content is to the right of the heading
+  // these might need adjustment according to the font chosen
   show combined: it => {
-    block(it, below: -measure(it.body).height)
+    if (it.at("level") == 2) {
+      block(it, below: (- 2 * measure(it.body).height + fontSize - 1.1pt) )
+    } else if (it.at("level") == 1) {
+      block(it, below: (- 2 * measure(it.body).height + fontSize + 1.7pt) )
+    } else if (it.at("level") >= 3) {
+      block(it, below: (- 2 * measure(it.body).height + fontSize - 4pt) )
+    }
   }
 
   /* Set metadata */

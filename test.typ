@@ -4,7 +4,7 @@
 #let fag = "S2"
 #let elevNavn = "Kari Nordmann"
 #let dokumentTittel = "Testprøve"
-#let deloppgaveNivaaer = (4, 7)
+#let deloppgaveNivaaer = (4, 5)
 #let dobbelUnderstrek = true
 #let spraak = "nb"
 #let dato = datetime.today()
@@ -13,6 +13,7 @@
 /* ======== Her fra trenger du ikke endre noe ======== */
 #let paddingISvarboks = 0.7em
 #let doubleLinePadding = 0.4em
+#let fontSize = 11pt
 
 #show: prove.with(
   fag: fag,
@@ -22,6 +23,7 @@
   spraak: spraak,
   marg: marg,
   padding: doubleLinePadding,
+  fontSize: fontSize,
   dato: datetime.today(),
 )
 
@@ -81,7 +83,7 @@ Her fortsetter vi på oppgave *1b*…
 
 #pagebreak()
 
-= Dokumentasjon
+= Prøvesvar
 Dette er en mal for dokumentspråket #link("https://typst.app/docs/tutorial/", "Typst") som er beregnet for elever og studenter. Denne malen skal hjelpe deg med å skrive svar på matteprøver og innleveringer. Hvis du bruker malen vil du få en god struktur på dokumentet, og resultatet kommer til være mye penere enn dokumenter skrevet i Microsoft Word.
 
 Denne malen bruker to viktige funksjoner for å lage oversiktlige svardokumenter:
@@ -99,7 +101,7 @@ Denne malen bruker to viktige funksjoner for å lage oversiktlige svardokumenter
 - Sørg for at utvidelsen #link("https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist", [_Tynimist Typst_]) er installert i Visual Studio Code.
 - Åpne kommandovinduet ved å trykke #kbd("ctrl") #kbd("⇧ Shift") #kbd("P") eller ved å velge _Vis_ → _Kommandopalett_ i verktøylinja.
 - Skriv inn `typst initial` og velg _Typst: initialize a new Typst project based on a template_ ved å trykke på enter-knappen #kbd("⏎") .
-- Skriv inn `@stalegjelsten/typst-provemal` og trykk #kbd("⏎") .
+- Skriv inn `@preview/provesvar:0.1.0` og trykk #kbd("⏎") .
 - Du kan nå skrive i dokumentet, men husk å trykke på forhåndsvisningsknappen #box(image("imgs/preview.svg"), height: 0.8em, baseline: 10%) som du finner over tekstfeltet i Visual Studio Code, for å få en forhåndsvisning av det ferdige dokumentet.
 
 Øverst i dokumentet ditt vil du se noen linjer med kode som justerer innstillingene for dokumentet ditt:
