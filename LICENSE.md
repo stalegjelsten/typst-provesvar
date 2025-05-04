@@ -1,5 +1,7 @@
 MIT License
 
+Copyright for portions of this project are held by Willow Carretero Chavez, 2024 as part of https://github.com/carreter/problemst. The rest of the copyrights are held by Ståle Gjelsten, 2025.
+
 Copyright (c) 2024 Willow Carretero Chavez
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
