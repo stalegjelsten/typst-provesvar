@@ -14,7 +14,9 @@ Denne malen bruker to viktige funksjoner for å lage oversiktlige svardokumenter
 - Åpne kommandovinduet ved å trykke `ctrl` `⇧ Shift` `P` eller ved å velge _Vis_ → _Kommandopalett_ i verktøylinja.
 - Skriv inn `typst initial` og velg _Typst: initialize a new Typst project based on a template_ ved å trykke på enter-knappen `⏎` .
 - Skriv inn `@preview/provesvar:0.1.0` og trykk `⏎` .
-- Du kan nå skrive i dokumentet, men husk å trykke på forhåndsvisningsknappen #box(image("imgs/preview.svg"), height: 0.8em, baseline: 10%) som du finner over tekstfeltet i Visual Studio Code, for å få en forhåndsvisning av det ferdige dokumentet.
+- Du kan nå skrive i dokumentet, men husk å trykke på forhåndsvisningsknappen som du finner over tekstfeltet i Visual Studio Code, for å få en forhåndsvisning av det ferdige dokumentet.
+
+![Forhåndsvisningsknappen](imgs/preview.svg)
 
 Øverst i dokumentet ditt vil du se noen linjer med kode som justerer innstillingene for dokumentet ditt:
 
