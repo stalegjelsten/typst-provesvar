@@ -11,9 +11,9 @@ Denne malen bruker to viktige funksjoner for å lage oversiktlige svardokumenter
 
 - Åpne programmet [_Visual Studio Code_](https://code.visualstudio.com).
 - Sørg for at utvidelsen [Tynimist Typst](https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist) er installert i Visual Studio Code.
-- Åpne kommandovinduet ved å trykke #kbd("ctrl") #kbd("⇧ Shift") #kbd("P") eller ved å velge _Vis_ → _Kommandopalett_ i verktøylinja.
-- Skriv inn `typst initial` og velg _Typst: initialize a new Typst project based on a template_ ved å trykke på enter-knappen #kbd("⏎") .
-- Skriv inn `@preview/provesvar:0.1.0` og trykk #kbd("⏎") .
+- Åpne kommandovinduet ved å trykke `ctrl` `⇧ Shift` `P` eller ved å velge _Vis_ → _Kommandopalett_ i verktøylinja.
+- Skriv inn `typst initial` og velg _Typst: initialize a new Typst project based on a template_ ved å trykke på enter-knappen `⏎` .
+- Skriv inn `@preview/provesvar:0.1.0` og trykk `⏎` .
 - Du kan nå skrive i dokumentet, men husk å trykke på forhåndsvisningsknappen #box(image("imgs/preview.svg"), height: 0.8em, baseline: 10%) som du finner over tekstfeltet i Visual Studio Code, for å få en forhåndsvisning av det ferdige dokumentet.
 
 Øverst i dokumentet ditt vil du se noen linjer med kode som justerer innstillingene for dokumentet ditt:
@@ -35,7 +35,7 @@ Denne malen vil automatisk gi ekstra marg på venstre side hver gang du skriver 
 Typst er et program som leser teksten du skriver inn i `filnavn.typ`-dokumentet og lager et pent formatert PDF-dokument som du kan levere inn. I tillegg vises det hele tiden en forhåndsvisning av dokumentet ditt i Visual Studio Code.
 
 ### Overskrifter
-Du må bruke overskrifter for at dokumentet skal få struktur. I Typst skrives overskrifter ved å starte med ett eller flere #kbd("=")-tegn på samme linje og deretter skrive tittelen på overskriften. Kodesnutten under viser hvordan du oppretter overskrifter på nivå 1 og 2.
+Du må bruke overskrifter for at dokumentet skal få struktur. I Typst skrives overskrifter ved å starte med ett eller flere `=`-tegn på samme linje og deretter skrive tittelen på overskriften. Kodesnutten under viser hvordan du oppretter overskrifter på nivå 1 og 2.
 ```typst
 = Oppgave 1
 == 1a
@@ -67,33 +67,22 @@ Her kommer en oppsummering av de viktigste tipsene for å skrive matematikk.
 
 - Funksjoner skrives som ord: `dot`, `sin`, `ln`, `integral, dif`
 - For å skrive to variabler etter hverandre så må bruke mellomrom: `$x y$` gir $x y$. Hvis man skriver `$xy$` tolker Typst $x y$ som en funksjon og gir feilmelding.
-- For å skrive måleenheter eller annen tekst bruker man anførselstegn (`""`). Da vil du se at teksten bli "stående" rett opp: `$s = 0.5 "h" dot 20 "km/h" = 10 "km"$` gir $s = 0{,}5 \text{ h} \cdot 20 \text{ km/h} = 10 \text{km}$
+- For å skrive måleenheter eller annen tekst bruker man anførselstegn (`""`). Da vil du se at teksten bli "stående" rett opp: `$s = 0.5 "h" dot 20 "km/h" = 10 "km"$` gir $s = 0{,}5 \text{ h} \cdot 20 \text{ km/h} = 10 \text{ km}$
 - Desimaltall skrives med punktum, men vises med desimalkomma: `$3.14$` gir $3.14$. _*Ikke* skriv desimaltall med komma_, da vil du få et stygt ekstra mellomrom: `$3,14$` gir $3,14$
 - Når du vil dele opp matematikk over flere linjer så bruker du `\` for å lage linjeskift og `&`-tegnet for å fortelle Typst hvilket tegn du ønsker at linjene skal justeres etter. Se det første eksempelet i tabellen.
 
 
 | Typst‐kode                                                                                          | Uttrykk                                                                                                              |
 |-----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| `"$A &= g \cdot h \\ &= 3 \cdot 2 = 6$"`                                                            | `$A = g \cdot h = 3 \cdot 2 = 6$`                                                                                     |
-| `"$f(x) = cases(x^2 &\"når\" 0<x<1, 1/2 x + 1/2 &\"når\" x>=1)$"`                                    | `$\displaystyle f(x)=\begin{cases}x^2 &\text{når }0<x<1,\\[0.5em]\frac{1}{2}x+\frac{1}{2} &\text{når }x\ge1\end{cases}$` |
-| `"$f(x) = x^2 + e^x \"for alle\" x>0$"`                                                             | `$f(x) = x^2 + e^x \;\text{for alle }x>0$`                                                                            |
-| `"$lim_(n->oo) sum_(i=1)^n f(x_i) dot Delta x$"`                                                     | `$\lim_{n\to\infty}\sum_{i=1}^n f(x_i)\,\Delta x$`                                                                    |
-| `"$integral_1^e 2 u / cancel(x) dot cancel(x) dif u = [u^2]_1^e = underline(underline(e^2 - 1))$"`  | `$\int_{1}^{e}\frac{2u}{x}\cdot x\,du = \bigl[u^2\bigr]_{1}^{e} = \underline{\underline{e^2 - 1}}$`                   |
-| `"$x<0 => sqrt(x) in.not RR$"`                                                                      | `$x<0 \Longrightarrow \sqrt{x}\notin\mathbb{R}$`                                                                       |
-<!--
-| Typst‐kode                                                                                                  | Uttrykk                                                                                                       |
-|-------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| `"$A &= g dot h \\ &= 3 dot 2 = 6$"`                                                                        | $$A = g \cdot h = 3 \cdot 2 = 6$$                                                                              |
-| `"$f(x) = cases(x^2 &\"når\" 0<x<1, 1/2 x + 1/2 &\"når\" x>=1)$"`                                            | $$f(x) = \begin{cases} x^2 &\text{når }0<x<1,\\ \tfrac12\,x + \tfrac12 &\text{når }x\ge1 \end{cases}$$    |
-| `"$f(x) = x^2 + e^x \"for alle\" x>0$"`                                                                     | $$f(x) = x^2 + e^x \;\text{for alle }x>0$$                                                                     |
-| `"$lim_(n->oo) sum_(i=1)^n f(x_i) dot Delta x$"`                                                             | $$\lim_{n\to\infty}\sum_{i=1}^n f(x_i)\,\Delta x$$                                                             |
-| `"$integral_1^e 2 u / cancel(x) dot cancel(x) dif u = [u^2]_1^e = underline(underline(e^2 - 1))$"`            | $$\int_1^e \frac{2u}{x}\cdot x \,du = \bigl[u^2\bigr]_1^e = \underline{\underline{e^2 - 1}}$$    |
-| `"$x<0 => sqrt(x) in.not RR$"`                                                                              | $$x<0 \Longrightarrow \sqrt{x} \notin \mathbb{R}$$                                                            |
-
--->
+| `$A &= g \cdot h \\ &= 3 \cdot 2 = 6$`                                                            | $A = g \cdot h = 3 \cdot 2 = 6$                                                                                     |
+| `$f(x) = cases(x^2 &\"når\" 0<x<1, 1/2 x + 1/2 &\"når\" x>=1)$`                                    |$\displaystyle f(x)=\begin{cases}x^2 &\text{når }0<x<1,\\[0.5em]\frac{1}{2}x+\frac{1}{2} &\text{når }x\ge1\end{cases}$ |
+| `$f(x) = x^2 + e^x \"for alle\" x>0$`                                                             | $f(x) = x^2 + e^x \;\text{for alle }x>0$                                                                            |
+| `$lim_(n->oo) sum_(i=1)^n f(x_i) dot Delta x$`                                                     |$\lim_{n\to\infty}\sum_{i=1}^n f(x_i)\,\Delta x$                                                                    |
+| `$integral_1^e 2 u / cancel(x) dot cancel(x) dif u = [u^2]_1^e = underline(underline(e^2 - 1))$`  | $\int_{1}^{e}\frac{2u}{x}\cdot x\,du = \bigl[u^2\bigr]_{1}^{e} = \underline{\underline{e^2 - 1}}$                   |
+| `$x<0 => sqrt(x) in.not RR$`                                                                      | $x<0 \Longrightarrow \sqrt{x}\notin\mathbb{R}$                                                                       |
 
 ### Bilder
-Den enkleste måten å legge til bilder i Typst på er å først kopiere bildet til utklippstavlen. Det kan du gjøre ved å høyreklikke på et bilde og velge _Kopier_, og det skjer også automatisk dersom du tar skjermbilde i Windows med #kbd("PrtScr") eller #kbd("⊞") #kbd("⇧ Shift") #kbd("S"). For å sette inn bildet i dokumentet så limer du det inn ved å trykke #kbd("ctrl") #kbd("V") i Visual Studio Code. Da skal det automatisk dukke opp kode som ligner på `#image("filnavn.png")`.
+Den enkleste måten å legge til bilder i Typst på er å først kopiere bildet til utklippstavlen. Det kan du gjøre ved å høyreklikke på et bilde og velge _Kopier_, og det skjer også automatisk dersom du tar skjermbilde i Windows med `PrtScr` eller `⊞` `⇧ Shift` `S`. For å sette inn bildet i dokumentet så limer du det inn ved å trykke `ctrl` `V` i Visual Studio Code. Da skal det automatisk dukke opp kode som ligner på `#image("filnavn.png")`.
 
 Som standard vil bildet ta opp hele bredden av dokumentet, men du kan stille på dette ved endre på funksjonen som la inn bildet til `#image("filnavn.png", width: 60%)`. 
 
