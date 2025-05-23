@@ -1,18 +1,22 @@
+#import "utils.typ": svarUtil, eksempel, kbd
+
 #let prove(
-  fag: "2PY",
-  tittel: "Terminprøve",
-  elev: "Kari Nordmann",
-  marg: 1cm,
+  subject: "2PY",
+  title: "Terminprøve",
+  student: "Kari Nordmann",
+  margin: 1cm,
   padding: 0.4em,
-  deloppgaveNivaa: (2, 3),
-  spraak: "nb",
+  subProblemLevels: (2, 3),
+  language: "nb",
   fontSize: 11pt,
-  dato: datetime.today(),
+  doubleUnderline: true,
+  date: datetime.today(),
+  makeTitle: true,
+  showHeaderText: true,
   doc,
 ) = {
-
   set par(justify: true)
-  set text(lang: spraak, size: fontSize)
+  set text(lang: language, size: fontSize)
 
   // make links stand out a bit
   show link: it => {
@@ -24,20 +28,32 @@
 
   // double underlines of display math
   show math.equation.where(label: <s>).and(math.equation.where(block: true)): it => {
-    math.underline(math.underline(math.display(it)))
+    if (doubleUnderline) {
+      math.underline(math.underline(math.display(it)))
+    } else {
+      it
+    }
   }
 
   // double underline hack by using box for inline math
   show math.equation.where(label: <s>).and(math.equation.where(block: false)): it => {
-    box(box(it, stroke: (bottom: 0.3pt), outset: (bottom: 0.4 * padding)), stroke: (bottom: 0.3pt), outset: (bottom: 0.6 * padding))
+    if (doubleUnderline) {
+      box(
+        box(it, stroke: (bottom: 0.3pt), outset: (bottom: 0.4 * padding)),
+        stroke: (bottom: 0.3pt),
+        outset: (bottom: 0.6 * padding),
+      )
+    } else {
+      it
+    }
   }
 
   // pads an element by marg amount from the left margin
   let padElem(it) = context {
     let lastHeads = query(selector(heading).before(here()))
     if lastHeads.len() > 0 {
-      if deloppgaveNivaa.any(it => { it == lastHeads.at(-1).level }) {
-        pad(it, left: marg)
+      if subProblemLevels.any(it => { it == lastHeads.at(-1).level }) {
+        pad(it, left: margin)
       } else {
         it
       }
@@ -45,7 +61,6 @@
       it
     }
   }
-
 
   // hack to change all decimal points to decimal commas
   show math.equation: it => {
@@ -62,9 +77,9 @@
   show figure: it => context {
     let lastHeads = query(selector(heading).before(here()))
     if lastHeads.len() > 0 {
-      if deloppgaveNivaa.any(it => { it == lastHeads.at(-1).level }) {
+      if subProblemLevels.any(it => { it == lastHeads.at(-1).level }) {
         it.body
-        pad(it.caption, left: marg)
+        pad(it.caption, left: margin)
       } else {
         it
       }
@@ -74,15 +89,15 @@
   }
 
   // this selector select all headings in deloppgaveNivaa
-  let combined = if deloppgaveNivaa.len() > 1 {
-    deloppgaveNivaa
-    .slice(1, deloppgaveNivaa.len())
+  let combined = if subProblemLevels.len() > 1 {
+    subProblemLevels
+    .slice(1, subProblemLevels.len())
     .fold(
-      heading.where(level: deloppgaveNivaa.at(0)),
+      heading.where(level: subProblemLevels.at(0)),
       (acc, lvl) => acc.or(heading.where(level: lvl)),
     )
   } else {
-    heading.where(level: deloppgaveNivaa.at(0))
+    heading.where(level: subProblemLevels.at(0))
   }
 
   // moves the content below headings.where(level: delOppgaveNivaa) up to the same level as the heading
@@ -90,35 +105,37 @@
   // these might need adjustment according to the font chosen
   show combined: it => {
     if (it.at("level") == 2) {
-      block(it, below: (- 2 * measure(it.body).height + fontSize - 1.1pt) )
+      block(it, below: ( -2 * measure(it.body).height + fontSize - 1.2pt))
     } else if (it.at("level") == 1) {
-      block(it, below: (- 2 * measure(it.body).height + fontSize + 1.7pt) )
+      block(it, below: ( -2 * measure(it.body).height + fontSize + 1.7pt))
     } else if (it.at("level") >= 3) {
-      block(it, below: (- 2 * measure(it.body).height + fontSize - 4pt) )
+      block(it, below: ( -2 * measure(it.body).height + fontSize - 4pt))
     }
   }
 
   /* Set metadata */
-  set document(title: [#fag - #tittel], author: elev, date: dato)
+  set document(title: [#subject - #title], author: student, date: date)
 
   /* Set up page numbering and continued page headers */
   set page(
     numbering: "1",
     header: context {
-      let venstreJustering = 0cm
-      let lastHeads = query(selector(heading).before(here()))
-      if lastHeads.len() > 0 {
-        if (deloppgaveNivaa.any(it => { it == lastHeads.at(-1).level })) {
-          venstreJustering = -marg
+      if (showHeaderText) {
+        let leftAdjustment = 0cm
+        let lastHeads = query(selector(heading).before(here()))
+        if lastHeads.len() > 0 {
+          if (subProblemLevels.any(it => { it == lastHeads.at(-1).level })) {
+            leftAdjustment = -margin
+          }
         }
+        if (counter(page).get().first() > 1) [
+          #set text(style: "italic")
+          #h(leftAdjustment) #subject -- #title
+          #h(1fr)
+          #student
+          #block(line(length: 100%, stroke: 0.5pt), above: 0.6em)
+        ]
       }
-      if (counter(page).get().first() > 1) [
-        #set text(style: "italic")
-        #h(venstreJustering) #fag -- #tittel
-        #h(1fr)
-        #elev
-        #block(line(length: 100%, stroke: 0.5pt), above: 0.6em)
-      ]
     },
   )
 
@@ -135,17 +152,21 @@
   }
 
   /* Make the title */
-  align(
-    center,
-    {
-      text(size: 1.6em, weight: "bold")[#fag -- #tittel \ ]
-      text(size: 1.2em, weight: "semibold")[#elev \ ]
-      emph[
-        #dato.display("[day].[month].[year]")
-      ]
-      box(line(length: 100%, stroke: 1pt))
-    },
-  )
+  if (makeTitle) {
+    align(
+      center,
+      {
+        text(size: 1.6em, weight: "bold")[#fag -- #tittel \ ]
+        text(size: 1.2em, weight: "semibold")[#elev \ ]
+        emph[
+          #dato.display("[day].[month].[year]")
+        ]
+        box(line(length: 100%, stroke: 1pt))
+      },
+    )
+  }
+
+  /* Proceed with rest of document */
 
   doc
 }

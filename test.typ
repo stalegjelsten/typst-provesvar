@@ -1,9 +1,9 @@
-#import "provesvar.typ": prove
+#import "src/provesvar.typ": prove, eksempel, svarUtil, kbd
 
 /* Endre på variablene i de neste 8 linjene */
-#let fag = "S2"
-#let elevNavn = "Kari Nordmann"
-#let dokumentTittel = "Testprøve"
+#let fag = "Prøvesvar"
+#let elevNavn = "Ståle Gjelsten"
+#let dokumentTittel = "Dokumentasjon"
 #let deloppgaveNivaaer = (4, 5)
 #let dobbelUnderstrek = true
 #let spraak = "nb"
@@ -14,74 +14,29 @@
 #let paddingISvarboks = 0.7em
 #let doubleLinePadding = 0.4em
 #let fontSize = 11pt
+#let makeTitle = false
+#let showHeaderText = false
 
 #show: prove.with(
-  fag: fag,
-  elev: elevNavn,
-  tittel: dokumentTittel,
-  deloppgaveNivaa: deloppgaveNivaaer,
-  spraak: spraak,
-  marg: marg,
+  subject: fag,
+  student: elevNavn,
+  title: dokumentTittel,
+  subProblemLevels: deloppgaveNivaaer,
+  language: spraak,
+  margin: marg,
   padding: doubleLinePadding,
+  doubleUnderline: dobbelUnderstrek,
   fontSize: fontSize,
-  dato: datetime.today(),
+  makeTitle: makeTitle,
+  showHeaderText: showHeaderText,
+  date: dato, 
 )
 
 #let svar(it, flereAvsnitt: false, noUnderline: false) = {
-  let paddingLeft = paddingISvarboks
-  if (flereAvsnitt) {
-    paddingLeft = -marg + paddingISvarboks
-  }
-  if (noUnderline or dobbelUnderstrek == false) {
-    rect(
-      it,
-      fill: color.hsl(0deg, 0%, 98.5%),
-      inset: (left: paddingLeft, top: paddingISvarboks, right: paddingISvarboks, bottom: 1.5 * paddingISvarboks),
-      radius: 0.3em,
-      stroke: 0.8pt + gray,
-      width: 100%,
-    )
-  } else {
-    rect(
-      underline(underline(text(it), offset: doubleLinePadding * 0.6, stroke: 0.3pt), offset: 0.4 * doubleLinePadding, stroke: 0.3pt),
-      fill: color.hsl(0deg, 0%, 98.5%),
-      inset: (left: paddingLeft, top: paddingISvarboks, right: paddingISvarboks, bottom: 1.5 * paddingISvarboks),
-      radius: 0.3em,
-      stroke: 0.8pt + gray,
-      width: 100%,
-    )
-  }
+  svarUtil(it, flereAvsnitt: flereAvsnitt, noUnderline: noUnderline, paddingISvarboks: paddingISvarboks, dobbelUnderstrek: dobbelUnderstrek)
 }
-
-#let eksempel(it) = {
-  block([ #align(right, text(strong("Eksempel"), size: 1.2em, fill: color.hsv(220deg, 100%, 46%)))
-  #block(it, above: -0.6em)], fill: color.hsv(220deg, 6%, 100%), radius: 3pt, stroke: (1pt + black), inset: 5pt, width: 100%)
-}
-
-#let kbd(it) = context {
-  set text(fill: rgb("#1f2328"))
-  let r = 3pt
-  box(fill: rgb("#f6f8fa"), stroke: rgb("#d1d9e0b3"), outset: (y: r), inset: (x: r), radius: r, raw(it))
-}
-
 
 /* ======== Her begynner dokumentet ditt ↓ ======== */
-
-= Oppgave 1
-Overskriften *Oppgave 1* er en overskrift med nivå 1. Avsnitt som hører til under en slik overskrift ser normale ut, og de bruker hele bredden av arket.
-
-==== 1a
-Overskriften *1a* er en overskrift på nivå 2. Da skyves innholdet ut mot høyre slik at det er enkelt for sensor å følge med på hvilken deloppgave du svarer på.
-
-Her er kommer utregninger, forklaringer og bilder, mens selve svaret på oppgaven skrives i en egen boks med dobbel understreking ved å skrive #raw("#svar[$f(x)$<s> har nullpunkt i $x = 2$<s>]", lang: "typ"). Resultatet vil se ut som dette ↓
-
-#svar[$f(x)$<s> har nullpunkt i $x=2$<s>]
-
-==== 1b
-Her fortsetter vi på oppgave *1b*…
-#svar(noUnderline: true)[$ I(x) = x dot p = x dot ( -100 ln ( x/300 ))  = underline(underline(-100x ln ( x/300 ))) $]
-
-#pagebreak()
 
 = Prøvesvar
 Dette er en mal for dokumentspråket #link("https://typst.app/docs/tutorial/", "Typst") som er beregnet for elever og studenter. Denne malen skal hjelpe deg med å skrive svar på matteprøver og innleveringer. Hvis du bruker malen vil du få en god struktur på dokumentet, og resultatet kommer til være mye penere enn dokumenter skrevet i Microsoft Word.
@@ -124,12 +79,10 @@ Typst er et program som leser teksten du skriver inn i `filnavn.typ`-dokumentet 
 
 === Overskrifter
 Du må bruke overskrifter for at dokumentet skal få struktur. I Typst skrives overskrifter ved å starte med ett eller flere #kbd("=")-tegn på samme linje og deretter skrive tittelen på overskriften. @kode:overskrifter viser hvordan du oppretter overskrifter på nivå 1 og 2.
-#figure(align(left, 
-raw("= Oppgave 1
+#figure(align(left, raw("= Oppgave 1
 == 1a
 Her kommer beregninger, forklaringer, bilder og svaret på en deloppgave.
-#svar[$f(x)$<s> har nullpunkt i $x=2$<s>]" 
-,lang: "typ", block: true)), caption: [Typst-kode som viser overskrifter på nivå 1 og 2], supplement: [Kodesnutt]) <kode:overskrifter>
+#svar[$f(x)$<s> har nullpunkt i $x=2$<s>]", lang: "typ", block: true)), caption: [Typst-kode som viser overskrifter på nivå 1 og 2], supplement: [Kodesnutt]) <kode:overskrifter>
 
 === Bruke overskrifter til å svare på deloppgaver
 Bruk en overskrift på nivå 2 eller 3 til å svare på deloppgaver. Som standard vil begge disse overskriftene vises på venstre side av arket, mens all tekst, beregninger og bilder vises til høyre for overskriften. Koden i @kode:overskrifter vil gi deg utskrift slik som i eksempelet nedenfor.
@@ -147,17 +100,16 @@ Bruk en overskrift på nivå 2 eller 3 til å svare på deloppgaver. Som standar
 #heading("", level: 8)
 #v(-1.5em)
 
-Du velger selv hvilke overskriftsnivåer du bruker for deloppgaver ved å endre på #raw("#let deloppgaveNivaaer = (2, 3)", lang: "typ") i innstillingene. 
-Hvis du skriver #raw("#let deloppgaveNivaaer = (3, 4, 5)", lang: "typ") så vil overskriftsnivå 3, 4 og 5 gi ekstra marg.
+Du velger selv hvilke overskriftsnivåer du bruker for deloppgaver ved å endre på #raw("#let deloppgaveNivaaer = (2, 3)", lang: "typ") i innstillingene.
+For eksempel vil #raw("#let deloppgaveNivaaer = (3, 4, 5)", lang: "typ") gjøre at overskriftsnivå 3, 4 og 5 får ekstra marg.
 #footnote[OBS! `deloppgaveNivaaer` *må* inneholde en liste med minst ett nivå (og et komma!), for eksempel skriver du #raw("#let deloppgaveNivaaer = (6,)", lang: "typ") for at kun overskrifter på nivå 6 skal gi ekstra marg.]
 
-
-=== Bruke `svar[]` for å få dobbel understreking
+=== Bruke `#svar[]` for å få dobbel understreking
 Når vi svarer på oppgaver bruker vi dobbel understreking under det endelige svaret. For å gjøre svarene ekstra tydelige så bruker denne malen også en grå rute som du kan se i eksempelet over. For å skrive et svar skriver du #raw("#svar[Her kommer svaret]", lang: "typ").
 
 Matematikk og vanlig tekst behandles på to ulike måter i Typst. Hvis du skal skrive matematiske symboler i svaret ditt så er du derfor nødt til å først det matematiske uttrykket, for eksempel #raw("$f(x)$", lang: "typ") slik som i eksempelet, og deretter legger du til #raw("<s>", lang: "typ") rett etter det siste dollartegnet.
 
-Hvis du ønsker at noe av teksten inne i svarboksen skal være uten understreking, mens andre deler skal ha understreking så kan du gjøre understrekingen manuelt. Du må da første deaktivere den automatiske understrekingen. Du kan gjøre dette for hele dokumentet ved å sette #raw("#let dobbelUnderstreking = false", lang: "typ") i toppen av dokumentet. Hvis du ønsker å skru av dobbel understreking for en spesifikk svarboks så skriver du #raw("#svar(noUnderline: true)[Her kommer svaret]", lang: "typ"). 
+Hvis du ønsker at noe av teksten inne i svarboksen skal være uten understreking, mens andre deler skal ha understreking så kan du gjøre understrekingen manuelt. Du må da første deaktivere den automatiske understrekingen. Du kan gjøre dette for hele dokumentet ved å sette #raw("#let dobbelUnderstreking = false", lang: "typ") i toppen av dokumentet. Hvis du ønsker å skru av dobbel understreking for en spesifikk svarboks så skriver du #raw("#svar(noUnderline: true)[Her kommer svaret]", lang: "typ").
 
 === Skrive matematikk
 Typst er et utrolig godt verktøy for å skrive matematikk. Alt som står mellom to dollartegn (`$`) tolkes som matematiske symboler. Typst kan vise matematikk på to ulike måter. Hvis du skal gjøre lengre beregninger eller ønsker at uttrykket ditt skal være godt synlig for leseren så legger du til mellomrom mellom dollartegnene og uttrykket ditt, for eksempel vil #raw("$ integral_1^e (ln x)/x dif x $", lang: "typ") vises som
@@ -178,7 +130,7 @@ Her kommer en oppsummering av de viktigste tipsene for å skrive matematikk.
   &=3 dot 2 = 6$", lang: "typ")],                                                                                       [$A &= g dot h \
       &=3 dot 2 = 6$],
   [#raw("$ f(x) = cases(x^2 &\"når\" 0<x<1, 
-  1/2 x + 1/2 &\"når\" x>=1) $", lang: "typ")],                                  [$ f(x) = cases(x^2 &"når" 0<x<1, 1 / 2 x + 1 / 2 &"når" x>=1) $],
+  1/2 x + 1/2 &\"når\" x>=1) $", lang: "typ")],                                                                         [$ f(x) = cases(x^2 &"når" 0<x<1, 1 / 2 x + 1 / 2 &"når" x>=1) $],
   [#raw("$ f(x) = x^2 + e^x \"for alle\" x>0 $", lang: "typ")],                                                            [$ f(x) = x^2 + e^x "for alle" x>0 $],
   [#raw("$ lim_(n->oo) sum_(i=1)^n f(x_i) dot Delta x  $", lang: "typ")],                                                  [$ lim_(n->oo) sum_(i=1)^n f(x_i) dot Delta x $],
   [#raw("$ integral_1^e 2 u / cancel(x) dot cancel(x) dif u = [u^2]_1^e = underline(underline(e^2 - 1)) $", lang: "typ")], [$ integral_1^e 2 u / cancel(x) dot cancel(x) space d u = [u^2]_1^e = underline(underline(e^2 - 1)) $],
@@ -190,7 +142,7 @@ Her kommer en oppsummering av de viktigste tipsene for å skrive matematikk.
 === Bilder
 Den enkleste måten å legge til bilder i Typst på er å først kopiere bildet til utklippstavlen. Det kan du gjøre ved å høyreklikke på et bilde og velge _Kopier_, og det skjer også automatisk dersom du tar skjermbilde i Windows med #kbd("PrtScr") eller #kbd("⊞") #kbd("⇧ Shift") #kbd("S"). For å sette inn bildet i dokumentet så limer du det inn ved å trykke #kbd("ctrl") #kbd("V") i Visual Studio Code. Da skal det automatisk dukke opp kode som ligner på #raw("#image(\"filnavn.png\")", lang: "typ").
 
-Som standard vil bildet ta opp hele bredden av dokumentet, men du kan stille på dette ved endre på funksjonen som la inn bildet til #raw("#image(\"filnavn.png\", width: 60%)", lang: "typ"). 
+Som standard vil bildet ta opp hele bredden av dokumentet, men du kan stille på dette ved endre på funksjonen som la inn bildet til #raw("#image(\"filnavn.png\", width: 60%)", lang: "typ").
 
 For å gjøre dokumentet enda mer profesjonelt kan du velge å sette bildet inn i en _figur_. Hver figur har sin egen figurtekst, og du kan referere til figuren i besvarelsen din. For å lage en figur bruker kan du bruke #raw("#figure()", lang: "typ")-funksjonen, slik som vist i @kode:figurtekst.
 

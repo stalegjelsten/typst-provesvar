@@ -1,15 +1,19 @@
 [package]
 name = "provesvar"
 version = "0.1.0"
-entrypoint = "provesvar.typ"
+entrypoint = "src/provesvar.typ"
 authors = ["Ståle Gjelsten <@stalegjelsten>", "Willow Carretero Chavez <@carreter>"]
 license = "MIT"
 repository = "https://github.com/stalegjelsten/typst-provemal"
 description = "A Norwegian template for writing math homework and math quiz answers" 
-keywords = ["template", "norwegian", "math test", "math quiz", "homework", "problem set", "pset", "assignment"]
-categories = ["report"]
-compiler = "0.12"
+keywords = ["template", "norwegian", "mathematics", "maths", "assignment"]
+categories = ["layout"]
+disiplines = ["education", "mathematics", "computer-science"]
+compiler = "0.13.1"
+excludes = ["*.pdf", "*test*", "*screenshot.png"]
 
 [template]
 path = "template"
 entrypoint = "main.typ"
+thumbnail = "imgs/thumbnail.png"
+
