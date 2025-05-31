@@ -1,6 +1,6 @@
-#let svarUtil(it, flereAvsnitt: false, noUnderline: false, paddingISvarboks: 0.7em, doubleLinePadding: 0.4em, dobbelUnderstrek: true) = {
+#let svarUtil(it, noUnderline: false, paddingISvarboks: 0.7em, doubleLinePadding: 0.4em, dobbelUnderstrek: true, marg: 1.0cm) = {
   let paddingLeft = paddingISvarboks
-  if (flereAvsnitt) {
+  if (it.children.contains(parbreak())) {
     paddingLeft = -marg + paddingISvarboks
   }
   if (noUnderline or dobbelUnderstrek == false) {

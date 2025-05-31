@@ -14,7 +14,7 @@ Denne malen bruker to viktige funksjoner for å lage oversiktlige svardokumenter
 - Åpne kommandovinduet ved å trykke `ctrl` `⇧ Shift` `P` eller ved å velge _Vis_ → _Kommandopalett_ i verktøylinja.
 - Skriv inn `typst initial` og velg _Typst: initialize a new Typst project based on a template_ ved å trykke på enter-knappen `⏎` .
 - Skriv inn `@preview/provesvar:0.1.0` og trykk `⏎` .
-- Du kan nå skrive i dokumentet, men husk å trykke på forhåndsvisningsknappen som du finner over tekstfeltet i Visual Studio Code, for å få en forhåndsvisning av det ferdige dokumentet.
+- Du kan nå skrive i dokumentet, men husk å trykke på forhåndsvisningsknappen (se ikonet under) som du finner over tekstfeltet i Visual Studio Code, for å få en forhåndsvisning av det ferdige dokumentet.
 
 ![Forhåndsvisningsknappen](imgs/preview.svg)
 
@@ -52,23 +52,23 @@ Du velger selv hvilke overskriftsnivåer du bruker for deloppgaver ved å endre 
 Hvis du skriver `#let deloppgaveNivaaer = (3, 4, 5)` så vil overskriftsnivå 3, 4 og 5 gi ekstra marg.[^1] 
 
 
-### Bruke for å få dobbel understreking
+### Bruke svar-funksjonen for å få dobbel understreking
 Når vi svarer på oppgaver bruker vi dobbel understreking under det endelige svaret. For å gjøre svarene ekstra tydelige så bruker denne malen også en grå rute som du kan se i eksempelet over. For å skrive et svar skriver du `#svar[Her kommer svaret]`.
 
 Matematikk og vanlig tekst behandles på to ulike måter i Typst. Hvis du skal skrive matematiske symboler i svaret ditt så er du derfor nødt til å først det matematiske uttrykket, for eksempel `$f(x)$` slik som i eksempelet, og deretter legger du til `<s>` rett etter det siste dollartegnet.
 
-Hvis du ønsker at noe av teksten inne i svarboksen skal være uten understreking, mens andre deler skal ha understreking så kan du gjøre understrekingen manuelt. Du må da første deaktivere den automatiske understrekingen. Du kan gjøre dette for hele dokumentet ved å sette `#let dobbelUnderstreking = false` i toppen av dokumentet. Hvis du ønsker å skru av dobbel understreking for en spesifikk svarboks så skriver du `#svar(noUnderline: true)[Her kommer svaret]`. 
+Hvis du ønsker at noe av teksten inne i svarboksen skal være uten understreking, mens andre deler skal ha understreking så kan du gjøre understrekingen manuelt. Du må da først deaktivere den automatiske understrekingen. Du kan gjøre dette for hele dokumentet ved å sette `#let dobbelUnderstreking = false` i toppen av dokumentet. Hvis du ønsker å skru av dobbel understreking for en spesifikk svarboks så skriver du `#svar(noUnderline: true)[Her kommer svaret]`. 
 
 ### Skrive matematikk
 Typst er et utrolig godt verktøy for å skrive matematikk. Alt som står mellom to dollartegn (`$`) tolkes som matematiske symboler. Typst kan vise matematikk på to ulike måter. Hvis du skal gjøre lengre beregninger eller ønsker at uttrykket ditt skal være godt synlig for leseren så legger du til mellomrom mellom dollartegnene og uttrykket ditt, for eksempel vil `$ integral_1^e (ln x)/x dif x $` vises som
-$ integral_1^e (ln x) / x dif x $
+$$\int_1^e \frac{\ln x}{x} \,\text{d}x$$
 
-Den andre måten Typst kan vise matematikk på er som en del av den løpende teksten ved å ikke ha mellomrom mellom dollartegnene og uttrykket. Dette vil gjøre størrelsen på matematikkuttrykkene mindre. For eksempel vil `$u=ln x$` vises som $u=ln x$.
+Den andre måten Typst kan vise matematikk på er som en del av den løpende teksten ved å ikke ha mellomrom mellom dollartegnene og uttrykket. Dette vil gjøre størrelsen på matematikkuttrykkene mindre. For eksempel vil `$u=ln x$` vises som $u=\ln x$.
 
 Her kommer en oppsummering av de viktigste tipsene for å skrive matematikk.
 
 - Funksjoner skrives som ord: `dot`, `sin`, `ln`, `integral, dif`
-- For å skrive to variabler etter hverandre så må bruke mellomrom: `$x y$` gir $x y$. Hvis man skriver `$xy$` tolker Typst $x y$ som en funksjon og gir feilmelding.
+- For å skrive to variabler etter hverandre så må bruke mellomrom: `$x y$` gir $x y$. Hvis man skriver `$xy$` tolker Typst ordet `xy` som en funksjon og gir feilmelding.
 - For å skrive måleenheter eller annen tekst bruker man anførselstegn (`""`). Da vil du se at teksten bli "stående" rett opp: `$s = 0.5 "h" dot 20 "km/h" = 10 "km"$` gir $s = 0{,}5 \text{ h} \cdot 20 \text{ km/h} = 10 \text{ km}$
 - Desimaltall skrives med punktum, men vises med desimalkomma: `$3.14$` gir $3.14$. _*Ikke* skriv desimaltall med komma_, da vil du få et stygt ekstra mellomrom: `$3,14$` gir $3,14$
 - Når du vil dele opp matematikk over flere linjer så bruker du `\` for å lage linjeskift og `&`-tegnet for å fortelle Typst hvilket tegn du ønsker at linjene skal justeres etter. Se det første eksempelet i tabellen.
@@ -76,12 +76,12 @@ Her kommer en oppsummering av de viktigste tipsene for å skrive matematikk.
 
 | Typst‐kode                                                                                          | Uttrykk                                                                                                              |
 |-----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| `$A &= g \cdot h \\ &= 3 \cdot 2 = 6$`                                                            | $A = g \cdot h = 3 \cdot 2 = 6$                                                                                     |
-| `$f(x) = cases(x^2 &\"når\" 0<x<1, 1/2 x + 1/2 &\"når\" x>=1)$`                                    |$\displaystyle f(x)=\begin{cases}x^2 &\text{når }0<x<1,\\[0.5em]\frac{1}{2}x+\frac{1}{2} &\text{når }x\ge1\end{cases}$ |
-| `$f(x) = x^2 + e^x \"for alle\" x>0$`                                                             | $f(x) = x^2 + e^x \;\text{for alle }x>0$                                                                            |
-| `$lim_(n->oo) sum_(i=1)^n f(x_i) dot Delta x$`                                                     |$\lim_{n\to\infty}\sum_{i=1}^n f(x_i)\,\Delta x$                                                                    |
-| `$integral_1^e 2 u / cancel(x) dot cancel(x) dif u = [u^2]_1^e = underline(underline(e^2 - 1))$`  | $\int_{1}^{e}\frac{2u}{x}\cdot x\,du = \bigl[u^2\bigr]_{1}^{e} = \underline{\underline{e^2 - 1}}$                   |
-| `$x<0 => sqrt(x) in.not RR$`                                                                      | $x<0 \Longrightarrow \sqrt{x}\notin\mathbb{R}$                                                                       |
+| `$A &= g \cdot h \\ &= 3 \cdot 2 = 6$`                                                            | $$A = g \cdot h = 3 \cdot 2 = 6$$                                                                                     |
+| `$f(x) = cases(x^2 &\"når\" 0<x<1, 1/2 x + 1/2 &\"når\" x>=1)$`                                    |$$f(x)=\begin{cases}x^2 &\text{når }0<x<1, \\ \frac{1}{2}x+\frac{1}{2} &\text{når }x\ge1\end{cases}$$ |
+| `$f(x) = x^2 + e^x \"for alle\" x>0$`                                                             | $$f(x) = x^2 + e^x \;\text{for alle }x>0$$                                                                            |
+| `$lim_(n->oo) sum_(i=1)^n f(x_i) dot Delta x$`                                                     |$$\lim_{n\to\infty}\sum_{i=1}^n f(x_i)\,\Delta x$$                                                                    |
+| `$integral_1^e 2 u / cancel(x) dot cancel(x) dif u = [u^2]_1^e = underline(underline(e^2 - 1))$`  | $$\int_{1}^{e}\frac{2u}{x}\cdot x\,du = \bigl[u^2\bigr]_{1}^{e} = \underline{\underline{e^2 - 1}}$$                   |
+| `$x<0 => sqrt(x) in.not RR$`                                                                      | $$x<0 \Longrightarrow \sqrt{x}\notin\mathbb{R}$$                                                                       |
 
 ### Bilder
 Den enkleste måten å legge til bilder i Typst på er å først kopiere bildet til utklippstavlen. Det kan du gjøre ved å høyreklikke på et bilde og velge _Kopier_, og det skjer også automatisk dersom du tar skjermbilde i Windows med `PrtScr` eller `⊞` `⇧ Shift` `S`. For å sette inn bildet i dokumentet så limer du det inn ved å trykke `ctrl` `V` i Visual Studio Code. Da skal det automatisk dukke opp kode som ligner på `#image("filnavn.png")`.
@@ -99,13 +99,15 @@ Legg gjerne merke til at jeg har lagt til `<merkelapp>` rett etter `#figure()`-f
 ### Kode
 For å legge inn kode skriver du tre [graviser](https://no.wikipedia.org/wiki/Gravis) (\`\`\`) etter hverandre og deretter skrive navnet på programmeringsspråket du bruker. Avslutt kodesnutten med tre nye graviser. Se kodesnutten under.
 
-```python
+\`\`\`python
+```python 
 a = 3
 sum = 0
 for i in range(10):
     sum += a
-print(f\"Summen av de 10 første leddene er {sum}.\")
+print(f"Summen av de 10 første leddene er {sum}.")
 ```
+\`\`\`
 
 ## Quirks
 Typst er et relativt nytt dokumentspråk, og jeg kjenner det ikke veldig godt selv. Denne malen er derfor langt fra perfekt, og det er derfor sannsynlig at du kommer borti noen særegenheter (engelsk: _quirks_) mens du skriver svar her.
@@ -113,10 +115,6 @@ Typst er et relativt nytt dokumentspråk, og jeg kjenner det ikke veldig godt se
 ### Formatere tall
 I dette dokumentet er det en funksjon som gjør om alle desimaltall skrevet i mattemodus med desimalpunktum til tall med desimalkomma. Hvis du skriver `$6.31$` får du altså $6{,}31$. Hvis du skriver `$6,31$` så vil du få $6,31$ (med et stygt mellomrom som vi ønsker å unngå).
 
-### Skrive flere avsnitt i en svarboks
-Hvis man skriver flere avsnitt i en svarboks med `#svar[Her kommer mye tekst…]` så kan det hende at teksten i tekstboksen skyves mer mot høyre enn hva som er meningen. Du kan manuelt fikse dette ved å skrive `#svar(flereAvsnitt: true)[Her kommer mye tekst…]`.
-
-Hvis du skal kombinere både flere avsnitt og deaktivering av dobbel understreking så skriver du `#svar(flereAvsnitt: true, noUnderline: true)[Her kommer svaret]`.
 
 # Takk og kontaktinformasjon
 Tusen takk for at du har testet ut denne malen! Tilbakemeldinger, ris og ros kan meldes til Ståle Gjelsten på e-postadressen [stalegjelsten@gmail.com](stalegjelsten@gmail.com), eller via [GitHub-repoet](https://github.com/stalegjelsten/typst-provemal).

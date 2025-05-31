@@ -37,8 +37,8 @@
   date: dato, 
 )
 
-#let svar(it, flereAvsnitt: false, noUnderline: false) = {
-  svarUtil(it, flereAvsnitt: flereAvsnitt, noUnderline: noUnderline, paddingISvarboks: paddingISvarboks, dobbelUnderstrek: dobbelUnderstrek)
+#let svar(it, noUnderline: false) = {
+  svarUtil(it, noUnderline: noUnderline, paddingISvarboks: paddingISvarboks, dobbelUnderstrek: dobbelUnderstrek, marg: marg)
 }
 /* ======== 👆 Ikke endre på dette 👆 ======== */
 

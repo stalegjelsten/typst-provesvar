@@ -32,8 +32,8 @@
   date: dato, 
 )
 
-#let svar(it, flereAvsnitt: false, noUnderline: false) = {
-  svarUtil(it, flereAvsnitt: flereAvsnitt, noUnderline: noUnderline, paddingISvarboks: paddingISvarboks, dobbelUnderstrek: dobbelUnderstrek)
+#let svar(it, noUnderline: false) = {
+  svarUtil(it, noUnderline: noUnderline, paddingISvarboks: paddingISvarboks, dobbelUnderstrek: dobbelUnderstrek, marg: marg)
 }
 
 /* ======== Her begynner dokumentet ditt ↓ ======== */
@@ -109,7 +109,7 @@ Når vi svarer på oppgaver bruker vi dobbel understreking under det endelige sv
 
 Matematikk og vanlig tekst behandles på to ulike måter i Typst. Hvis du skal skrive matematiske symboler i svaret ditt så er du derfor nødt til å først det matematiske uttrykket, for eksempel #raw("$f(x)$", lang: "typ") slik som i eksempelet, og deretter legger du til #raw("<s>", lang: "typ") rett etter det siste dollartegnet.
 
-Hvis du ønsker at noe av teksten inne i svarboksen skal være uten understreking, mens andre deler skal ha understreking så kan du gjøre understrekingen manuelt. Du må da første deaktivere den automatiske understrekingen. Du kan gjøre dette for hele dokumentet ved å sette #raw("#let dobbelUnderstreking = false", lang: "typ") i toppen av dokumentet. Hvis du ønsker å skru av dobbel understreking for en spesifikk svarboks så skriver du #raw("#svar(noUnderline: true)[Her kommer svaret]", lang: "typ").
+Hvis du ønsker at noe av teksten inne i svarboksen skal være uten understreking, mens andre deler skal ha understreking så kan du gjøre understrekingen manuelt. Du må da først deaktivere den automatiske understrekingen. Du kan gjøre dette for hele dokumentet ved å sette #raw("#let dobbelUnderstreking = false", lang: "typ") i toppen av dokumentet. Hvis du ønsker å skru av dobbel understreking for en spesifikk svarboks så skriver du #raw("#svar(noUnderline: true)[Her kommer svaret]", lang: "typ").
 
 === Skrive matematikk
 Typst er et utrolig godt verktøy for å skrive matematikk. Alt som står mellom to dollartegn (`$`) tolkes som matematiske symboler. Typst kan vise matematikk på to ulike måter. Hvis du skal gjøre lengre beregninger eller ønsker at uttrykket ditt skal være godt synlig for leseren så legger du til mellomrom mellom dollartegnene og uttrykket ditt, for eksempel vil #raw("$ integral_1^e (ln x)/x dif x $", lang: "typ") vises som
@@ -168,11 +168,6 @@ Typst er et relativt nytt dokumentspråk, og jeg kjenner det ikke veldig godt se
 
 === Formatere tall
 I dette dokumentet er det en funksjon som gjør om alle desimaltall skrevet i mattemodus med desimalpunktum til tall med desimalkomma. Hvis du skriver `$6.31$` får du altså $6.31$. Hvis du skriver `$6,31$` så vil du få $6,31$ (med et stygt mellomrom som vi ønsker å unngå).
-
-=== Skrive flere avsnitt i en svarboks
-Hvis man skriver flere avsnitt i en svarboks med #raw("#svar[Her kommer mye tekst…]", lang: "typ") så kan det hende at teksten i tekstboksen skyves mer mot høyre enn hva som er meningen. Du kan manuelt fikse dette ved å skrive #raw("#svar(flereAvsnitt: true)[Her kommer mye tekst…]", lang: "typ").
-
-Hvis du skal kombinere både flere avsnitt og deaktivering av dobbel understreking så skriver du #raw("#svar(flereAvsnitt: true, noUnderline: true)[Her kommer svaret]", lang: "typ").
 
 = Takk og kontaktinformasjon
 Tusen takk for at du har testet ut denne malen! Tilbakemeldinger, ris og ros kan meldes til Ståle Gjelsten på e-postadressen #link("stalegjelsten@gmail.com", "stalegjelsten@gmail.com"), eller via #link("https://github.com/stalegjelsten/typst-provemal", "GitHub-repoet").
